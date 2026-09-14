@@ -9,61 +9,78 @@
 # =============================================================================
 
 team:
-  name: ""                             # REQUIRED — e.g., "Orion Squad"
-  track: ""                            # REQUIRED — one of: AI | DevOps | Sustainability | Open
+  name: "Astro Hackers"                  # REQUIRED
+  track: "AI"                            # REQUIRED — AI track
   lead:
-    name: ""                           # REQUIRED — e.g., "Alice Chen"
-    email: ""                          # REQUIRED — e.g., "alice.chen@ibm.com"
+    name: ""                             # REQUIRED — fill in team lead name
+    email: ""                            # REQUIRED — fill in team lead email
   members:
-    - name: ""                         # REQUIRED — Team member 1
+    - name: ""                           # REQUIRED — Team member 1
       email: ""
-    - name: ""                         # Add more members by copying the two lines above
+    - name: ""
       email: ""
     - name: ""
       email: ""
 
 submission:
-  title: ""                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
+  title: "Threat Intelligence Correlation & Alert Prioritisation Assistant"
 
-  problem_statement: >                 # REQUIRED — 1-3 sentences. What problem? Who has it?
-    Replace this text with a concise description of the real-world problem
-    your project addresses and who experiences it.
+  problem_statement: >
+    Security Operations Centres (SOCs) are overwhelmed by hundreds of thousands
+    of raw SIEM alerts daily, making it nearly impossible for analysts and
+    commanders to identify genuine threats amid noise and false positives.
+    Adversary tactics remain unmapped to actionable intelligence frameworks,
+    and decision-makers lack concise, prioritised briefings to act decisively.
 
-  solution_summary: >                  # REQUIRED — 1-3 sentences. What did you build?
-    Replace this text with a clear description of your solution
-    and how it addresses the problem above.
+  solution_summary: >
+    An end-to-end AI-powered SOC platform that ingests 244 k+ Zeek and
+    CIC-IDS2018 network/IDS events, correlates them into multi-stage attack
+    campaigns, enriches indicators against the live Abuse.ch URLhaus IOC feed
+    and the MITRE ATT&CK STIX 2.1 framework, and applies a RandomForest ML
+    classifier to separate genuine threats from false positives—producing
+    structured BLUF (Bottom Line Up Front) executive briefs and an interactive
+    Streamlit Command Centre dashboard for commanders and SOC analysts.
 
-  key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
-    - ""                               # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
-    - ""
-    - ""
-    - ""                               # optional 4th
-    - ""                               # optional 5th
+  key_features:
+    - "Multi-source SIEM ingestion (244k+ Zeek + CIC-IDS2018 events) with alert deduplication achieving >73% noise reduction"
+    - "Live Abuse.ch URLhaus IOC cross-correlation with offline-resilient JSON cache for guaranteed demo availability"
+    - "MITRE ATT&CK STIX 2.1 technique enrichment covering T1110, T1190, T1498, T1499, T1071, T1595, T1078, T1048"
+    - "RandomForest ML classifier (AUC-ROC ~0.99) distinguishing genuine threats from false positives with confidence scores"
+    - "Automated defence-grade BLUF commander briefs with dynamic Priority Score = Threat_Confidence × Asset_Criticality × Severity"
 
   tech_stack:
-    languages: []                      # REQUIRED — e.g., ["Python", "TypeScript"]
-    frameworks: []                     # e.g., ["FastAPI", "React"]
-    ibm_technologies: []               # e.g., ["watsonx.ai", "IBM Bob", "IBM Cloud Functions"]
-    databases: []                      # e.g., ["PostgreSQL", "Redis"]
-    other: []                          # e.g., ["Docker", "GitHub Actions", "Slack API"]
+    languages: ["Python 3.10+"]
+    frameworks: ["Streamlit", "scikit-learn", "Plotly", "pandas", "NumPy"]
+    ibm_technologies: ["IBM Bob"]
+    databases: []
+    other: ["Abuse.ch URLhaus API", "MITRE ATT&CK STIX 2.1 (GitHub CDN)", "RandomForest Classifier", "Zeek IDS", "CIC-IDS2018 Dataset"]
 
-  what_we_are_most_proud_of: >         # Optional but recommended — guides judges to your best work
-    Replace with what aspect of the submission you consider strongest
-    and want judges to pay special attention to.
+  what_we_are_most_proud_of: >
+    The automated BLUF (Bottom Line Up Front) generator that combines ML
+    threat confidence, MITRE ATT&CK technique enrichment, URLhaus IOC
+    cross-correlation, and multi-stage incident correlation into a single
+    military-grade structured intelligence brief. A commander can read the
+    bottom line in under 10 seconds and immediately issue containment orders
+    with cited evidence — closing the gap between raw telemetry and
+    actionable command decision-making.
 
-  known_limitations: >                 # Optional but recommended — be honest about gaps
-    Replace with any known limitations, incomplete features,
-    or shortcuts taken due to time constraints.
+  known_limitations: >
+    The URLhaus IOC cross-correlation shows limited direct IP hits on the
+    current dataset IPs because URLhaus primarily tracks malware-hosting URLs
+    rather than DDoS/brute-force source IPs. Incident temporal clustering uses
+    a fixed 5-minute window which may merge or split some campaigns. The ML
+    classifier is trained on the same dataset distribution and should be
+    re-validated against out-of-distribution production traffic before
+    operational deployment.
 
 # =============================================================================
 # ARTIFACT LOCATIONS
-# These paths are relative to the repo root. Only change if you moved files.
 # =============================================================================
 artifacts:
   source_code: "src/"
   setup_guide: "docs/setup-guide.md"
   architecture_doc: "docs/architecture.md"
-  demo_video: "demo/demo-video-link.txt"   # URL to hosted video (YouTube, Loom, Box)
-  live_demo: "demo/live-demo-url.txt"      # URL to deployed demo (optional)
+  demo_video: "demo/demo-video-link.txt"
+  live_demo: "demo/live-demo-url.txt"
   screenshots: "demo/screenshots/"
   presentation: "presentation/"
