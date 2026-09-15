@@ -67,7 +67,7 @@ graph TD
     style BOB fill:#fff7ed,stroke:#f97316
 ```
 
----
+-------------
 
 ## Components
 
@@ -84,7 +84,7 @@ graph TD
 | **Dashboard** | `src/app.py` | Streamlit, Plotly | 5-tab interactive UI: command centre, alert explorer, MITRE heatmap, IOC lookup, AI copilot |
 | **Cache** | `src/cache/` | JSON, pickle | URLhaus snapshot, MITRE STIX bundle, serialised RandomForest model |
 
----
+------------
 
 ## Data Flow
 
