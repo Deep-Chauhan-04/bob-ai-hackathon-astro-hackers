@@ -176,7 +176,7 @@ Key sections to fill:
 > ✅ Before submitting, search the README for `[` — any remaining brackets mean
 > you missed a placeholder.
 
---------
+----
 
 ### 4.3 `docs/`
 
@@ -372,7 +372,7 @@ Entries are scored on 6 criteria totalling **100 points**:
 | Setup guide missing key steps | Test it yourself on a fresh terminal before submitting |
 | Video link requires special access | Use "anyone with link" permissions on Loom/YouTube/Box |
 
----
+-------
 
 ## 9. FAQ
 
