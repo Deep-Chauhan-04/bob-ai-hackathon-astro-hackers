@@ -49,16 +49,20 @@ def _load_dotenv(path: Path) -> None:
             if not line or line.startswith("#") or "=" not in line:
                 continue
             key, val = line.split("=", 1)
-            os.environ.setdefault(key.strip(), val.strip())
+            key = key.strip()
+            val = val.strip().strip("'\"")
+            # Keep non-empty OS values authoritative, but recover when a
+            # launcher exported the variable as an empty string.
+            if key and (not os.environ.get(key, "").strip()):
+                os.environ[key] = val
 
 
 # Load .env from multiple candidate locations (repo root and src/).
-# Uses setdefault so the first file found wins and OS env always takes priority.
-_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+# Non-empty OS values take priority; the first non-empty file value wins.
+_REPO_ROOT = Path(__file__).resolve().parents[2]
 for _env_candidate in (
     _REPO_ROOT / ".env",          # repo root  (standard)
     _REPO_ROOT / "src" / ".env",  # src/.env   (where this project keeps it)
-    Path(__file__).resolve().parent.parent / ".env",  # src/.env relative
 ):
     _load_dotenv(_env_candidate)
 
