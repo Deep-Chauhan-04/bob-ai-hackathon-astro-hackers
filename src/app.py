@@ -33,6 +33,14 @@ from engine.classifier import get_classifier
 from engine.bluf_generator import generate_bluf, generate_executive_summary, THREAT_LEVEL_BADGE
 from threat_intel.urlhaus_feed import get_feed
 from threat_intel.mitre_stix import get_mitre, TACTIC_ORDER, BUILTIN_TECHNIQUES
+from engine.bob_client import get_bob_client
+from engine.bob_prompts import (
+    SYSTEM_PERSONA,
+    build_threat_explanation_prompt,
+    build_bluf_prompt,
+    build_recommendations_prompt,
+    build_qa_prompt,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -187,11 +195,12 @@ st.markdown("---")
 # ─────────────────────────────────────────────────────────────────────────────
 # Main Tabs
 # ─────────────────────────────────────────────────────────────────────────────
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📋 Commander's BLUF",
     "🔬 SOC Investigation Workbench",
     "🎯 MITRE ATT&CK Matrix",
     "🌐 Threat Intel & IOC Feed",
+    "🤖 Bob AI Copilot",
 ])
 
 
@@ -629,3 +638,184 @@ with tab4:
     }
     for src, status in sources.items():
         st.markdown(f"**{src}**: {status}")
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# TAB 5 — IBM Bob AI Copilot
+# ════════════════════════════════════════════════════════════════════════════
+with tab5:
+    st.markdown("## 🤖 IBM Bob AI Copilot — Incident Intelligence")
+    st.markdown(
+        "Bob provides dynamic threat explanations, BLUF summaries, "
+        "prioritised recommendations, and free-form Q&A — all grounded "
+        "strictly in the selected incident's pipeline data."
+    )
+
+    # ── Bob availability banner ───────────────────────────────────────────
+    @st.cache_resource(show_spinner=False)
+    def _get_bob():
+        return get_bob_client()
+
+    bob = _get_bob()
+
+    if not bob.available:
+        st.warning(
+            "⚠️ **Bob AI layer is offline.** "
+            "Set `BOB_INFERENCE_API_KEY` in `.env` and restart the app to enable it. "
+            "All existing template-based BLUF output is still available on the "
+            "Commander's BLUF tab."
+        )
+    else:
+        st.success(
+            f"✅ **IBM Bob connected** — model: `{bob.model}` | "
+            f"endpoint: `{bob._base_url}`"
+        )
+
+    st.markdown("---")
+
+    # ── Incident selector ─────────────────────────────────────────────────
+    if not incidents:
+        st.warning("No correlated incidents available. Increase the dataset sample size.")
+    else:
+        bob_incident_id = st.selectbox(
+            "Select incident",
+            options=[i["incident_id"] for i in incidents[:30]],
+            key="bob_incident_selector",
+        )
+        bob_inc = next((i for i in incidents if i["incident_id"] == bob_incident_id), None)
+
+        if bob_inc:
+            bob_ml_conf = bob_inc.get("ml_confidence", threat_mean_conf)
+
+            # Incident snapshot metrics
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Source IP", bob_inc["src_ip"])
+            m2.metric("Priority", f"{bob_inc.get('priority_score', 0):.1f}/10")
+            m3.metric("ML Confidence", f"{bob_ml_conf*100:.0f}%")
+            m4.metric("Events", f"{bob_inc['event_count']:,}")
+
+            st.markdown("---")
+
+            # ── Feature tabs ──────────────────────────────────────────────
+            b_tab1, b_tab2, b_tab3, b_tab4 = st.tabs([
+                "🔍 Threat Explanation",
+                "📋 Dynamic BLUF",
+                "⚡ Recommendations",
+                "💬 Analyst Q&A",
+            ])
+
+            # ── Threat Explanation ────────────────────────────────────────
+            with b_tab1:
+                st.markdown("#### Why is this incident a genuine threat?")
+                if not bob.available:
+                    st.info("Enable IBM Bob (see above) to get AI-generated explanations.")
+                else:
+                    if st.button("🔍 Generate Threat Explanation", key="btn_explain"):
+                        with st.spinner("Bob is analysing the incident…"):
+                            prompt = build_threat_explanation_prompt(bob_inc, bob_ml_conf)
+                            text, ok = bob.chat_safe(
+                                prompt,
+                                fallback="[Bob unavailable — check API key and connectivity]",
+                                system=SYSTEM_PERSONA,
+                                max_tokens=500,
+                                temperature=0.2,
+                            )
+                        if ok:
+                            st.markdown(text)
+                        else:
+                            st.error(text)
+                    else:
+                        st.caption("Click the button to generate a Bob AI threat explanation.")
+
+            # ── Dynamic BLUF ──────────────────────────────────────────────
+            with b_tab2:
+                st.markdown("#### Bob-generated BLUF Intelligence Brief")
+                if not bob.available:
+                    st.info("Enable IBM Bob (see above) to get AI-generated BLUF.")
+                else:
+                    if st.button("📋 Generate Dynamic BLUF", key="btn_bluf"):
+                        with st.spinner("Bob is writing the intelligence brief…"):
+                            prompt = build_bluf_prompt(bob_inc, bob_ml_conf)
+                            text, ok = bob.chat_safe(
+                                prompt,
+                                fallback="[Bob unavailable — check API key and connectivity]",
+                                system=SYSTEM_PERSONA,
+                                max_tokens=700,
+                                temperature=0.15,
+                            )
+                        if ok:
+                            st.markdown(
+                                f"<div class='bluf-box'>{text}</div>",
+                                unsafe_allow_html=True,
+                            )
+                            st.download_button(
+                                "⬇ Export Bob BLUF",
+                                data=text,
+                                file_name=f"BOB_BLUF_{bob_incident_id}.txt",
+                                mime="text/plain",
+                            )
+                        else:
+                            st.error(text)
+                    else:
+                        st.caption("Click the button to generate a Bob AI BLUF brief.")
+
+            # ── Recommendations ───────────────────────────────────────────
+            with b_tab3:
+                st.markdown("#### Prioritised Analyst Action Plan")
+                if not bob.available:
+                    st.info("Enable IBM Bob (see above) to get AI-generated recommendations.")
+                else:
+                    if st.button("⚡ Generate Action Plan", key="btn_recs"):
+                        with st.spinner("Bob is formulating actions…"):
+                            prompt = build_recommendations_prompt(bob_inc, bob_ml_conf)
+                            text, ok = bob.chat_safe(
+                                prompt,
+                                fallback="[Bob unavailable — check API key and connectivity]",
+                                system=SYSTEM_PERSONA,
+                                max_tokens=500,
+                                temperature=0.2,
+                            )
+                        if ok:
+                            st.markdown(text)
+                        else:
+                            st.error(text)
+                    else:
+                        st.caption("Click the button to generate a Bob AI action plan.")
+
+            # ── Analyst Q&A ───────────────────────────────────────────────
+            with b_tab4:
+                st.markdown("#### Ask Bob about this incident")
+                if not bob.available:
+                    st.info("Enable IBM Bob (see above) to use the Q&A feature.")
+                else:
+                    question = st.text_input(
+                        "Your question",
+                        placeholder=(
+                            "e.g. What protocol was used? "
+                            "Is this a DDoS? "
+                            "Should we block the source IP immediately?"
+                        ),
+                        key="bob_qa_input",
+                    )
+                    if st.button("💬 Ask Bob", key="btn_qa") and question.strip():
+                        with st.spinner("Bob is answering…"):
+                            prompt = build_qa_prompt(bob_inc, bob_ml_conf, question)
+                            text, ok = bob.chat_safe(
+                                prompt,
+                                fallback="[Bob unavailable — check API key and connectivity]",
+                                system=SYSTEM_PERSONA,
+                                max_tokens=300,
+                                temperature=0.2,
+                            )
+                        if ok:
+                            st.markdown(f"**Q:** {question}")
+                            st.markdown(f"**A:** {text}")
+                        else:
+                            st.error(text)
+                    elif st.button("💬 Ask Bob", key="btn_qa_empty") if not question.strip() else False:
+                        st.warning("Please enter a question first.")
+                    else:
+                        st.caption(
+                            "Type a question about this incident and click Ask Bob. "
+                            "Bob will answer using only the incident data — no hallucinated facts."
+                        )
