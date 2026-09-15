@@ -1,6 +1,318 @@
 {
-  "fetched_at": "2026-09-15T15:31:49.871283+00:00",
+  "fetched_at": "2026-09-15T16:37:47.286265+00:00",
   "records": [
+    {
+      "url": "http://182.117.7.153:36879/i",
+      "host": "182.117.7.153",
+      "ip": "182.117.7.153",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://123.4.171.86:60395/bin.sh",
+      "host": "123.4.171.86",
+      "ip": "123.4.171.86",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://115.56.172.115:51655/i",
+      "host": "115.56.172.115",
+      "ip": "115.56.172.115",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://125.41.3.155:58395/i",
+      "host": "125.41.3.155",
+      "ip": "125.41.3.155",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://222.136.20.146:39354/bin.sh",
+      "host": "222.136.20.146",
+      "ip": "222.136.20.146",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://182.117.7.153:36879/bin.sh",
+      "host": "182.117.7.153",
+      "ip": "182.117.7.153",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.x86",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.mips",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/mpsl",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/spc",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.sh4",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.arm7",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.mpsl",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.arm",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.spc",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/i686",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.ppc",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://114.226.84.162:52327/i",
+      "host": "114.226.84.162",
+      "ip": "114.226.84.162",
+      "tags": "32-bit,arm,elf,mirai,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/m68k",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/mips",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/x86",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/arm",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://105.184.187.73:46413/bin.sh",
+      "host": "105.184.187.73",
+      "ip": "105.184.187.73",
+      "tags": "32-bit,arm,elf,mirai,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://46.151.182.200/bins/dlr.arm5",
+      "host": "46.151.182.200",
+      "ip": "46.151.182.200",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/sh4",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/arm5",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/x86_64",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://94.154.43.217/bins/ppc",
+      "host": "94.154.43.217",
+      "ip": "94.154.43.217",
+      "tags": "elf,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.arm6",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.m68k",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.217/bins/sora.arm5",
+      "host": "176.65.139.217",
+      "ip": "176.65.139.217",
+      "tags": "elf,mirai,ua-wget",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://109.61.211.193:41029/i",
+      "host": "109.61.211.193",
+      "ip": "109.61.211.193",
+      "tags": "Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://125.41.3.155:58395/bin.sh",
+      "host": "125.41.3.155",
+      "ip": "125.41.3.155",
+      "tags": "32-bit,elf,mips,Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://176.65.139.206/armv7l",
+      "host": "176.65.139.206",
+      "ip": "176.65.139.206",
+      "tags": "cowrie,honeypot",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://159.69.59.93/70/img_091646.png",
+      "host": "159.69.59.93",
+      "ip": "159.69.59.93",
+      "tags": "rat,RemcosRAT,stego",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://5.175.169.207/img_134929.png",
+      "host": "5.175.169.207",
+      "ip": "5.175.169.207",
+      "tags": "MassLogger,stego",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://204.44.93.123/102/ceco.hta",
+      "host": "204.44.93.123",
+      "ip": "204.44.93.123",
+      "tags": "hta,opendir",
+      "url_status": "offline",
+      "threat": "malware_download"
+    },
+    {
+      "url": "https://res.cloudinary.com/te9euryt/image/upload/v1789469538/img_125004.jpg",
+      "host": "res.cloudinary.com",
+      "ip": "",
+      "tags": "None",
+      "url_status": "offline",
+      "threat": "malware_download"
+    },
+    {
+      "url": "http://109.61.211.193:41029/bin.sh",
+      "host": "109.61.211.193",
+      "ip": "109.61.211.193",
+      "tags": "Mozi",
+      "url_status": "online",
+      "threat": "malware_download"
+    },
     {
       "url": "https://pub-0216fa08b2b94e129cb9e002cf7cb1f4.r2.dev/img_023948.png",
       "host": "pub-0216fa08b2b94e129cb9e002cf7cb1f4.r2.dev",
@@ -206,7 +518,7 @@
       "host": "13.140.176.180",
       "ip": "13.140.176.180",
       "tags": "64-bit,DDoSAgent,elf,x86-64",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -222,7 +534,7 @@
       "host": "uno-play.online",
       "ip": "",
       "tags": "Electron,spyware,stealer",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -342,7 +654,7 @@
       "host": "222.137.4.182",
       "ip": "222.137.4.182",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -374,7 +686,7 @@
       "host": "61.53.118.140",
       "ip": "61.53.118.140",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -390,7 +702,7 @@
       "host": "61.53.118.140",
       "ip": "61.53.118.140",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -478,7 +790,7 @@
       "host": "94.28.39.38",
       "ip": "94.28.39.38",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -494,7 +806,7 @@
       "host": "36.70.100.38",
       "ip": "36.70.100.38",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -758,7 +1070,7 @@
       "host": "61.52.1.179",
       "ip": "61.52.1.179",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -774,7 +1086,7 @@
       "host": "61.52.1.179",
       "ip": "61.52.1.179",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -870,7 +1182,7 @@
       "host": "42.7.137.136",
       "ip": "42.7.137.136",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -918,7 +1230,7 @@
       "host": "45.163.68.86",
       "ip": "45.163.68.86",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -998,7 +1310,7 @@
       "host": "120.84.212.223",
       "ip": "120.84.212.223",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1094,7 +1406,7 @@
       "host": "124.161.116.2",
       "ip": "124.161.116.2",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1198,7 +1510,7 @@
       "host": "109.108.56.174",
       "ip": "109.108.56.174",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1254,7 +1566,7 @@
       "host": "186.149.204.12",
       "ip": "186.149.204.12",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1278,7 +1590,7 @@
       "host": "124.161.116.2",
       "ip": "124.161.116.2",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1342,7 +1654,7 @@
       "host": "116.138.234.238",
       "ip": "116.138.234.238",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1366,7 +1678,7 @@
       "host": "115.52.42.63",
       "ip": "115.52.42.63",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1678,7 +1990,7 @@
       "host": "193.31.201.20",
       "ip": "193.31.201.20",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1758,7 +2070,7 @@
       "host": "124.161.116.2",
       "ip": "124.161.116.2",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1790,7 +2102,7 @@
       "host": "105.184.17.134",
       "ip": "105.184.17.134",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1814,7 +2126,7 @@
       "host": "101.108.15.52",
       "ip": "101.108.15.52",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1886,7 +2198,7 @@
       "host": "194.59.30.143",
       "ip": "194.59.30.143",
       "tags": "honeypot,ssh",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1894,7 +2206,7 @@
       "host": "194.59.30.143",
       "ip": "194.59.30.143",
       "tags": "honeypot,ssh",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1942,7 +2254,7 @@
       "host": "177.36.24.216",
       "ip": "177.36.24.216",
       "tags": "32-bit,arm,elf,mirai,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1950,7 +2262,7 @@
       "host": "196.189.98.110",
       "ip": "196.189.98.110",
       "tags": "32-bit,arm,elf,mirai,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -1982,7 +2294,7 @@
       "host": "176.65.139.251",
       "ip": "176.65.139.251",
       "tags": "elf,mirai,ua-wget",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -2102,7 +2414,7 @@
       "host": "176.65.139.251",
       "ip": "176.65.139.251",
       "tags": "elf,mirai,ua-wget",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -2278,7 +2590,7 @@
       "host": "160.250.181.123",
       "ip": "160.250.181.123",
       "tags": "elf,mirai,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -2294,7 +2606,7 @@
       "host": "222.141.113.84",
       "ip": "222.141.113.84",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -2310,7 +2622,7 @@
       "host": "78.188.196.206",
       "ip": "78.188.196.206",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -3550,7 +3862,7 @@
       "host": "119.191.237.76",
       "ip": "119.191.237.76",
       "tags": "32-bit,arm,elf,mirai,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -3606,7 +3918,7 @@
       "host": "93.157.253.209",
       "ip": "93.157.253.209",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -4046,7 +4358,7 @@
       "host": "42.7.137.136",
       "ip": "42.7.137.136",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -4237,8 +4549,8 @@
       "url": "http://13.140.176.180:8080/x86",
       "host": "13.140.176.180",
       "ip": "13.140.176.180",
-      "tags": "32-bit,elf,x86-32",
-      "url_status": "offline",
+      "tags": "32-bit,DDoSAgent,elf,x86-32",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -4966,7 +5278,7 @@
       "host": "42.239.176.28",
       "ip": "42.239.176.28",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -5110,7 +5422,7 @@
       "host": "27.44.147.16",
       "ip": "27.44.147.16",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -5166,7 +5478,7 @@
       "host": "42.243.138.63",
       "ip": "42.243.138.63",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -5174,7 +5486,7 @@
       "host": "27.29.62.26",
       "ip": "27.29.62.26",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -5310,7 +5622,7 @@
       "host": "27.44.144.94",
       "ip": "27.44.144.94",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -5446,7 +5758,7 @@
       "host": "60.22.194.98",
       "ip": "60.22.194.98",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -5478,7 +5790,7 @@
       "host": "61.52.184.186",
       "ip": "61.52.184.186",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -5758,7 +6070,7 @@
       "host": "175.150.178.98",
       "ip": "175.150.178.98",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -5790,7 +6102,7 @@
       "host": "182.127.71.87",
       "ip": "182.127.71.87",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6086,7 +6398,7 @@
       "host": "124.94.203.196",
       "ip": "124.94.203.196",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6174,7 +6486,7 @@
       "host": "175.150.178.98",
       "ip": "175.150.178.98",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6182,7 +6494,7 @@
       "host": "115.52.42.63",
       "ip": "115.52.42.63",
       "tags": "Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6198,7 +6510,7 @@
       "host": "175.165.109.74",
       "ip": "175.165.109.74",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -6406,7 +6718,7 @@
       "host": "120.28.200.193",
       "ip": "120.28.200.193",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6678,7 +6990,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6694,7 +7006,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6702,7 +7014,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6710,7 +7022,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6718,7 +7030,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6726,7 +7038,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6734,7 +7046,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6758,7 +7070,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6782,7 +7094,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6790,7 +7102,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6798,7 +7110,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "encrypted,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6806,7 +7118,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader,rat,RemcosRAT",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6814,7 +7126,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6822,7 +7134,7 @@
       "host": "drive.google.com",
       "ip": "",
       "tags": "ascii,Encoded,GuLoader",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -6910,7 +7222,7 @@
       "host": "125.41.224.2",
       "ip": "125.41.224.2",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -7654,7 +7966,7 @@
       "host": "113.238.226.27",
       "ip": "113.238.226.27",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -7750,7 +8062,7 @@
       "host": "160.250.181.123",
       "ip": "160.250.181.123",
       "tags": "elf,mirai,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -7918,7 +8230,7 @@
       "host": "182.116.48.4",
       "ip": "182.116.48.4",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -7926,7 +8238,7 @@
       "host": "39.74.115.234",
       "ip": "39.74.115.234",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -7950,7 +8262,7 @@
       "host": "39.74.115.234",
       "ip": "39.74.115.234",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -8190,7 +8502,7 @@
       "host": "160.250.181.123",
       "ip": "160.250.181.123",
       "tags": "elf,iot",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -8614,7 +8926,7 @@
       "host": "160.250.181.123",
       "ip": "160.250.181.123",
       "tags": "elf,mirai,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -8798,7 +9110,7 @@
       "host": "27.37.231.6",
       "ip": "27.37.231.6",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -8814,7 +9126,7 @@
       "host": "222.142.254.44",
       "ip": "222.142.254.44",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -8830,7 +9142,7 @@
       "host": "222.142.254.44",
       "ip": "222.142.254.44",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -9750,7 +10062,7 @@
       "host": "116.139.184.55",
       "ip": "116.139.184.55",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -9894,7 +10206,7 @@
       "host": "27.215.121.8",
       "ip": "27.215.121.8",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -10126,7 +10438,7 @@
       "host": "101.108.15.52",
       "ip": "101.108.15.52",
       "tags": "mirai",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -10598,7 +10910,7 @@
       "host": "82.54.109.235",
       "ip": "82.54.109.235",
       "tags": "32-bit,arm,elf,mirai,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -10646,7 +10958,7 @@
       "host": "160.250.181.123",
       "ip": "160.250.181.123",
       "tags": "elf,iot",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -10734,7 +11046,7 @@
       "host": "116.139.184.55",
       "ip": "116.139.184.55",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -11902,7 +12214,7 @@
       "host": "60.22.195.130",
       "ip": "60.22.195.130",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -12470,7 +12782,7 @@
       "host": "113.224.75.59",
       "ip": "113.224.75.59",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -12854,7 +13166,7 @@
       "host": "175.9.132.63",
       "ip": "175.9.132.63",
       "tags": "mirai",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -12918,7 +13230,7 @@
       "host": "119.115.250.2",
       "ip": "119.115.250.2",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -14718,7 +15030,7 @@
       "host": "175.167.65.19",
       "ip": "175.167.65.19",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -15822,7 +16134,7 @@
       "host": "42.52.58.181",
       "ip": "42.52.58.181",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -16030,7 +16342,7 @@
       "host": "47.242.74.93",
       "ip": "47.242.74.93",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -16206,7 +16518,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17302,7 +17614,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "Bigviktor,elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17310,7 +17622,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17398,7 +17710,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17414,7 +17726,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17422,7 +17734,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "Bigviktor,elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17430,7 +17742,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17438,7 +17750,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "Bigviktor,elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -17470,7 +17782,7 @@
       "host": "94.249.188.204",
       "ip": "94.249.188.204",
       "tags": "elf,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -18742,7 +19054,7 @@
       "host": "42.5.21.40",
       "ip": "42.5.21.40",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -19214,7 +19526,7 @@
       "host": "175.9.132.63",
       "ip": "175.9.132.63",
       "tags": "32-bit,arm,elf,mirai,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -19254,7 +19566,7 @@
       "host": "176.65.139.218",
       "ip": "176.65.139.218",
       "tags": "elf,mirai,ua-wget",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -20222,7 +20534,7 @@
       "host": "loop-lumen.com",
       "ip": "",
       "tags": " amos, macos, stealer, wallet-hijack,ClickFix",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -24582,7 +24894,7 @@
       "host": "61.137.128.200",
       "ip": "61.137.128.200",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -28814,7 +29126,7 @@
       "host": "176.65.139.206",
       "ip": "176.65.139.206",
       "tags": "elf,mirai,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -32278,7 +32590,7 @@
       "host": "47.76.159.198",
       "ip": "47.76.159.198",
       "tags": "censys,elf,P2Pinfect,ua-wget",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -33798,7 +34110,7 @@
       "host": "119.184.4.100",
       "ip": "119.184.4.100",
       "tags": "32-bit,arm,elf,mirai,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -39030,7 +39342,7 @@
       "host": "113.230.81.174",
       "ip": "113.230.81.174",
       "tags": "32-bit,elf,mips,Mozi",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -39454,7 +39766,7 @@
       "host": "176.65.139.136",
       "ip": "176.65.139.136",
       "tags": "176-65-139-136,elf,mirai,ua-wget",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -45574,7 +45886,7 @@
       "host": "178.16.54.109",
       "ip": "178.16.54.109",
       "tags": "dropped-by-Phorpiex,Phorphiex",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -50806,7 +51118,7 @@
       "host": "119.118.55.26",
       "ip": "119.118.55.26",
       "tags": "None",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -61102,7 +61414,7 @@
       "host": "176.65.139.136",
       "ip": "176.65.139.136",
       "tags": "176-65-139-136,elf,mirai,ua-wget",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -61974,7 +62286,7 @@
       "host": "raw.githubusercontent.com",
       "ip": "",
       "tags": "ascii,Encoded,rev-base64-loader",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -66982,7 +67294,7 @@
       "host": "45.177.33.169",
       "ip": "45.177.33.169",
       "tags": "elf,iot,mirai,Mozi",
-      "url_status": "online",
+      "url_status": "offline",
       "threat": "malware_download"
     },
     {
@@ -71542,7 +71854,7 @@
       "host": "paretandassociates.screenconnect.com",
       "ip": "",
       "tags": "None",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
@@ -83822,7 +84134,7 @@
       "host": "176.65.139.202",
       "ip": "176.65.139.202",
       "tags": "elf,mirai,opendir,ua-wget,x86",
-      "url_status": "offline",
+      "url_status": "online",
       "threat": "malware_download"
     },
     {
