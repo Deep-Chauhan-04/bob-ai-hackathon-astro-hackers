@@ -26,7 +26,7 @@ git clone https://github.com/Deep-Chauhan-04/bob-ai-hackathon-astro-hackers.git
 cd bob-ai-hackathon-astro-hackers
 ```
 
----
+-------
 
 ## Step 2 — Create a Virtual Environment (Recommended)
 
@@ -41,7 +41,7 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
----
+------
 
 ## Step 3 — Install Dependencies
 

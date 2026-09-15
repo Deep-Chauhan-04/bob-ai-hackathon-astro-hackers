@@ -207,3 +207,7 @@ master_events.csv (244k rows)
   [`src/engine/bob_prompts.py`](../src/engine/bob_prompts.py) with real incident data injected
   — ML confidence scores, MITRE technique IDs, URLhaus IOC tags, event counts — so Bob
   produces grounded, actionable intelligence analysis rather than generic cybersecurity advice.
+
+---
+<!-- Contributor: Krish Ardeshana -->
+

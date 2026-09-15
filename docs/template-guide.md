@@ -4,7 +4,7 @@ This guide explains how to use the
 [bob-ai-hackathon-submission-template](https://github.com/drijesh-ppatel/bob-ai-hackathon-submission-template)
 to structure and submit your hackathon entry.
 
----
+------------
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@ to structure and submit your hackathon entry.
 8. [Common Mistakes](#8-common-mistakes)
 9. [FAQ](#9-faq)
 
----
+------------
 
 ## 1. Overview
 
@@ -36,7 +36,7 @@ The template gives every team a consistent, well-structured repository so that:
 
 **One template → one repo per team. Do not share repos across teams.**
 
----
+----------
 
 ## 2. Getting Started — Use the Template
 
@@ -176,7 +176,7 @@ Key sections to fill:
 > ✅ Before submitting, search the README for `[` — any remaining brackets mean
 > you missed a placeholder.
 
----
+----
 
 ### 4.3 `docs/`
 
@@ -372,7 +372,7 @@ Entries are scored on 6 criteria totalling **100 points**:
 | Setup guide missing key steps | Test it yourself on a fresh terminal before submitting |
 | Video link requires special access | Use "anyone with link" permissions on Loom/YouTube/Box |
 
----
+-------
 
 ## 9. FAQ
 
