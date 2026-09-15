@@ -24,7 +24,7 @@ to structure and submit your hackathon entry.
 8. [Common Mistakes](#8-common-mistakes)
 9. [FAQ](#9-faq)
 
---------
+----
 
 ## 1. Overview
 
