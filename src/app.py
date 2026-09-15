@@ -1206,18 +1206,66 @@ elif "Reports" in nav_selection:
 
     q = st.text_input("Ask IBM Bob AI about threat triage or defensive rules", placeholder="e.g. Generate an iptables containment rule for SSH brute force")
     if st.button("Query Bob AI") and q.strip():
+        text, ok = "", False
         if bob.available:
             with st.spinner("Bob AI is reasoning…"):
                 text, ok = bob.chat_safe(q.strip(), system=SYSTEM_PERSONA, max_tokens=400)
-            if ok:
-                st.markdown(f"""
-                <div class="soc-card" style="margin-top:14px;background:#131d2e;border-left:3px solid #3b82f6">
-                  <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:8px"><b>BOB AI RESPONSE:</b></div>
-                  <div style="font-size:0.88rem;color:#f8fafc;line-height:1.7">{text}</div>
-                </div>
-                """, unsafe_allow_html=True)
+
+        if ok:
+            st.markdown(f"""
+            <div class="soc-card" style="margin-top:14px;background:#131d2e;border-left:3px solid #3b82f6">
+              <div style="font-size:0.8rem;color:#94a3b8;margin-bottom:8px"><b>BOB AI RESPONSE:</b></div>
+              <div style="font-size:0.88rem;color:#f8fafc;line-height:1.7">{text}</div>
+            </div>
+            """, unsafe_allow_html=True)
         else:
-            st.info("Template response: For SSH brute force (T1110), deploy fail2ban or iptables: `iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --set && iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 4 -j DROP`")
+            st.warning("IBM Bob is unavailable, so this is a local offline response.")
+            if text:
+                with st.expander("Connection diagnostic"):
+                    st.code(text)
+            question = q.strip().lower()
+            if any(term in question for term in ("iptables", "ssh", "brute force", "port 22")):
+                offline_response = (
+                    "### 🛡️ SSH Brute Force Containment Rules (MITRE T1110)\n\n"
+                    "#### 1. Direct iptables Connection Rate-Limiting\n"
+                    "```bash\n"
+                    "# Create recent tracking module for new SSH connections\n"
+                    "iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --set --name SSH_BRUTEFORCE\n\n"
+                    "# Drop IP if it initiates more than 3 new SSH connection attempts per 60 seconds\n"
+                    "iptables -A INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 4 --name SSH_BRUTEFORCE -j DROP\n"
+                    "```\n\n"
+                    "#### 2. Immediate Source IP Block (Targeted Containment)\n"
+                    "```bash\n"
+                    "# Drop all incoming traffic from specific attacking source IP (replace <SRC_IP> with incident evidence)\n"
+                    "iptables -A INPUT -p tcp -s <SRC_IP> --dport 22 -j DROP\n"
+                    "```\n\n"
+                    "#### 3. Operational Playbook & Verification\n"
+                    "- **Evidence Verification:** Confirm source IP and timestamps from Zeek / SSH auth logs (`/var/log/auth.log` or `journalctl -u ssh`).\n"
+                    "- **Fail2ban Policy:** Enable `[sshd]` filter with `maxretry = 3` and `findtime = 600` for dynamic persistent ban.\n"
+                    "- **Log Preservation:** Ensure authentication failure logs are backed up before rule removal."
+                )
+            elif any(term in question for term in ("rule", "block", "contain", "firewall")):
+                offline_response = (
+                    "### 🛡️ Offline Firewall Containment Policy\n\n"
+                    "```bash\n"
+                    "# 1. Drop traffic from verified malicious source IP\n"
+                    "iptables -A INPUT -s <SRC_IP> -j DROP\n\n"
+                    "# 2. Rate limit incoming connections on affected service port\n"
+                    "iptables -A INPUT -p tcp --dport <PORT> -m state --state NEW -m recent --set --name RATE_LIMIT\n"
+                    "iptables -A INPUT -p tcp --dport <PORT> -m state --state NEW -m recent --update --seconds 60 --hitcount 10 -j DROP\n"
+                    "```\n\n"
+                    "- Scope rules strictly to verified indicators.\n"
+                    "- Test rule in dry-run/logging mode first (`-j LOG --log-prefix \"CONTAINMENT_DROP: \"`)."
+                )
+            else:
+                offline_response = (
+                    "Offline triage guidance: validate the request against the "
+                    "incident evidence, identify confirmed indicators and MITRE "
+                    "techniques, contain only verified activity, and record the "
+                    "decision for review."
+                )
+            st.markdown(offline_response)
+            st.caption("Replace BOB_INFERENCE_API_KEY in .env with a valid Inference-scoped key to re-enable live answers.")
 
 
 # ════════════════════════════════════════════════════════════════════════════
