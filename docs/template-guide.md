@@ -24,7 +24,7 @@ to structure and submit your hackathon entry.
 8. [Common Mistakes](#8-common-mistakes)
 9. [FAQ](#9-faq)
 
----
+--------
 
 ## 1. Overview
 
@@ -36,7 +36,7 @@ The template gives every team a consistent, well-structured repository so that:
 
 **One template → one repo per team. Do not share repos across teams.**
 
----
+----------
 
 ## 2. Getting Started — Use the Template
 
@@ -176,7 +176,7 @@ Key sections to fill:
 > ✅ Before submitting, search the README for `[` — any remaining brackets mean
 > you missed a placeholder.
 
----
+--------
 
 ### 4.3 `docs/`
 
