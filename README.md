@@ -137,3 +137,5 @@ The automated **BLUF (Bottom Line Up Front) generator** is the centrepiece of ou
 A commander can read the bottom line in under 10 seconds and immediately issue containment orders with cited, traceable evidence — IP addresses, MITRE technique IDs, IOC tags, confidence percentages, and prioritised actions. This closes the gap between 244,000 raw telemetry rows and a decisive command action, which is the exact problem the system was built to solve.
 
 ---
+<!-- Astro Hackers Threat Intelligence Correlation & Alert Prioritisation Assistant -->
+
