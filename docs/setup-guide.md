@@ -17,7 +17,7 @@ Before you begin, ensure you have the following installed:
 
 No Docker, no database, no Node.js — this is a pure Python application.
 
----------
+---
 
 ## Step 1 — Clone the Repository
 
