@@ -12,7 +12,7 @@ single day**. The CIC-IDS2018 benchmark dataset used in this project contains 24
 labelled network events drawn from two sources (Zeek and CIC-IDS2018), and it represents
 just a fraction of what a production environment generates.
 
------
+------------
 
 ## The Problem
 
@@ -45,7 +45,7 @@ SOC analysts and commanders face three compounding challenges:
 - **Security Engineers** who maintain IDS/SIEM pipelines and need visibility into which
   attack techniques are active and how the threat landscape is evolving.
 
----
+--------
 
 ## Why It Matters
 
