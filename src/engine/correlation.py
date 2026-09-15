@@ -15,10 +15,9 @@ from threat_intel.mitre_stix import MitreAttack
 
 logger = logging.getLogger(__name__)
 
-# Temporal window in seconds for grouping events into an "incident"
-CAMPAIGN_WINDOW_SECONDS = 300  # 5-minute rolling window
-
-# Minimum number of alerts to constitute a correlated incident
+# Minimum number of threat events from the same source IP to form an incident.
+# No time-window constraint: the dataset spans multiple weeks/months so a
+# fixed 5-minute window would never fire.
 MIN_INCIDENT_SIZE = 3
 
 
@@ -64,42 +63,16 @@ def correlate_incidents(
     if threat_df.empty:
         return []
 
-    # Sort by source IP and timestamp for grouping
-    threat_df = threat_df.sort_values(["src_ip", "timestamp"]).reset_index(drop=True)
-
     incidents: List[Dict] = []
-    visited = set()
 
-    # Group by source IP
+    # Group ALL threat events by source IP — no time-window constraint.
+    # The real dataset spans multiple weeks so a narrow temporal window
+    # would never produce any incidents.
     for src_ip, group in threat_df.groupby("src_ip", sort=False):
-        group = group.sort_values("timestamp").reset_index(drop=True)
-        # Sliding window within this source IP
-        i = 0
-        while i < len(group):
-            if i in visited:
-                i += 1
-                continue
-            window = [i]
-            t0 = group.at[i, "timestamp"]
-            j = i + 1
-            while j < len(group):
-                tj = group.at[j, "timestamp"]
-                if pd.isna(t0) or pd.isna(tj):
-                    break
-                delta = (tj - t0).total_seconds()
-                if delta <= CAMPAIGN_WINDOW_SECONDS:
-                    window.append(j)
-                    j += 1
-                else:
-                    break
-            for idx in window:
-                visited.add(idx)
-
-            if len(window) >= MIN_INCIDENT_SIZE:
-                cluster = group.iloc[window]
-                incident = _build_incident(cluster, src_ip, feed, mitre)
-                incidents.append(incident)
-            i = j if j > i else i + 1
+        if len(group) >= MIN_INCIDENT_SIZE:
+            cluster = group.sort_values("timestamp").reset_index(drop=True)
+            incident = _build_incident(cluster, src_ip, feed, mitre)
+            incidents.append(incident)
 
     # Sort by priority descending
     incidents.sort(key=lambda x: x["priority_score"], reverse=True)

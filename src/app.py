@@ -442,7 +442,7 @@ def _load_clf(n: int, enabled: bool):
 
 
 @st.cache_data(show_spinner="Correlating multi-stage campaigns…", ttl=300)
-def _correlate(n: int, refresh: bool):
+def _correlate(n: int, refresh: bool, _v: int = 2):  # _v busts stale cache
     df = _load_df(n)
     feed, mitre = _load_intel(refresh)
     return correlate_incidents(df, feed=feed, mitre=mitre)
@@ -680,90 +680,107 @@ if "Dashboard" in nav_selection:
 
         fig_map.update_geos(
             showcountries=True,
-            countrycolor="#243046",
+            countrycolor="#2d3f5e",
             showocean=True,
-            oceancolor="#101625",
+            oceancolor="#0d1520",
             showland=True,
-            landcolor="#182032",
+            landcolor="#1a2740",
             showlakes=False,
-            bgcolor="rgba(0,0,0,0)",
-            projection_type="equirectangular",
-            center=dict(lat=22, lon=10),
-            projection_scale=1.05,
+            showrivers=False,
+            showframe=False,
+            bgcolor="#0e131f",
+            projection_type="natural earth",
+            lataxis_range=[-55, 75],
+            lonaxis_range=[-170, 170],
         )
         fig_map.update_layout(
             margin=dict(t=0, b=0, l=0, r=0),
-            height=320,
-            paper_bgcolor="rgba(0,0,0,0)",
-            plot_bgcolor="rgba(0,0,0,0)",
+            height=300,
+            paper_bgcolor="#0e131f",
+            plot_bgcolor="#0e131f",
+            geo=dict(bgcolor="#0e131f"),
         )
 
         st.markdown("""
-        <div class="soc-card" style="height: 380px; position: relative;">
+        <div class="soc-card" style="padding-bottom:8px;">
           <div class="soc-card-header" style="margin-bottom:4px">
             <div class="soc-card-title">Global Threat Map</div>
             <div class="live-badge"><span class="live-pulse"></span> Live</div>
           </div>
+        </div>
         """, unsafe_allow_html=True)
 
         st.plotly_chart(fig_map, use_container_width=True, config={"displayModeBar": False})
-
-        st.markdown("""
-        </div>
-        """, unsafe_allow_html=True)
 
     # ── Middle Row: Threat Intelligence Feed (Left) + Top Threat Actors (Right)
     col_mid_left, col_mid_right = st.columns([1.2, 1.2])
 
     with col_mid_left:
-        # High-density Threat Intel Feed table
-        feed_items = [
-            ("Critical", "New APT29 C2 Infrastructure Detected", "AlienVault", "12 hours ago"),
-            ("High", "Ransomware Variant XYZ Spreading", "Recorded Future", "12 hours ago"),
-            ("High", "Emotet Payload Staging on Port 443", "Abuse.ch", "13 hours ago"),
-            ("Medium", "New IOCs Indicators Extracted", "Internal Hunt", "14 hours ago"),
-            ("Medium", "New APT29 C2 Region Detected", "Internal Hunt", "14 hours ago"),
-            ("Medium", "SSH Credential Brute Force Flood", "SIEM Sensor", "15 hours ago"),
-            ("Low", "Benign Probe Suppressed via ML", "Classifier", "16 hours ago"),
-        ]
+        # High-density Threat Intel Feed table — built from live URLhaus records
+        _sev_labels = {5: "Critical", 4: "High", 3: "Medium", 2: "Low", 1: "Low", 0: "Low"}
 
-        rows_html = ""
-        for sev, title, source, tstamp in feed_items:
+        # Pull top 7 URLhaus records as live feed items
+        _feed_rows: list = []
+        for _rec in (feed._records or [])[:7]:
+            _threat_raw = str(_rec.get("threat", "Malware"))
+            _url = str(_rec.get("url", "N/A"))
+            _status = str(_rec.get("url_status", "active"))
+            _tags = str(_rec.get("tags", ""))
+            _sev_lbl = (
+                "Critical" if any(t in _threat_raw.lower() for t in ("ransomware", "c2", "cobalt")) else
+                "High" if "malware" in _threat_raw.lower() else
+                "Medium"
+            )
+            _src = "URLhaus / Abuse.ch"
+            _ts = _status.capitalize()  # use url_status as brief status indicator
+            _title = f"{_threat_raw.replace('_', ' ').title()} — {_url[:52]}{'…' if len(_url) > 52 else ''}"
+            _feed_rows.append((_sev_lbl, _title, _src, _ts))
+
+        # Fallback: if feed is empty, derive feed items from top incidents
+        if not _feed_rows:
+            _inc_sev_map = {5: "Critical", 4: "High", 3: "High", 2: "Medium", 1: "Medium", 0: "Low"}
+            for _inc in incidents[:7]:
+                _cats = ", ".join(_inc.get("categories", [])[:2]) or "Unknown"
+                _src_ip = _inc.get("src_ip", "?")
+                _tacs = ", ".join(_inc.get("tactics", [])[:2]) or "Multi-stage"
+                _sev_lbl = _inc_sev_map.get(_inc.get("max_severity", 1), "Medium")
+                _title = f"{_cats} from {_src_ip} [{_tacs}]"
+                _ts = str(_inc.get("start_time", ""))[:16] or "—"
+                _feed_rows.append((_sev_lbl, _title, "SIEM Correlation", _ts))
+
+        _feed_tbody = ""
+        for sev, title, source, tstamp in _feed_rows:
             sev_class = (
                 "sev-text-critical" if sev == "Critical" else
                 "sev-text-high" if sev == "High" else
                 "sev-text-medium" if sev == "Medium" else "sev-text-low"
             )
-            rows_html += f"""
-            <tr>
-              <td class="{sev_class}">{sev}</td>
-              <td style="font-weight:500">{title}</td>
-              <td style="color:#94a3b8">{source}</td>
-              <td style="color:#64748b">{tstamp}</td>
-            </tr>
-            """
+            # Escape any HTML special chars in data values to prevent injection
+            title_safe = title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            source_safe = source.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            tstamp_safe = tstamp.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            _feed_tbody += (
+                f'<tr>'
+                f'<td class="{sev_class}">{sev}</td>'
+                f'<td style="font-weight:500">{title_safe}</td>'
+                f'<td style="color:#94a3b8">{source_safe}</td>'
+                f'<td style="color:#64748b">{tstamp_safe}</td>'
+                f'</tr>'
+            )
 
-        st.markdown(f"""
-        <div class="soc-card" style="min-height: 340px;">
-          <div class="soc-card-header">
-            <div class="soc-card-title">Threat Intelligence Feed</div>
-            <div class="live-badge"><span class="live-pulse"></span> Live</div>
-          </div>
-          <table class="soc-table">
-            <thead>
-              <tr>
-                <th>Severity</th>
-                <th>Title</th>
-                <th>Source</th>
-                <th>Timestamp</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows_html}
-            </tbody>
-          </table>
-        </div>
-        """, unsafe_allow_html=True)
+        _feed_html = (
+            '<div class="soc-card" style="min-height: 340px;">'
+            '<div class="soc-card-header">'
+            '<div class="soc-card-title">Threat Intelligence Feed</div>'
+            '<div class="live-badge"><span class="live-pulse"></span> Live</div>'
+            '</div>'
+            '<table class="soc-table"><thead><tr>'
+            '<th>Severity</th><th>Title</th><th>Source</th><th>Status</th>'
+            '</tr></thead>'
+            '<tbody>' + _feed_tbody + '</tbody>'
+            '</table></div>'
+        )
+        st.markdown(_feed_html, unsafe_allow_html=True)
 
     with col_mid_right:
         # Top Threat Actors Horizontal Bar Chart matching the reference image!
@@ -801,87 +818,96 @@ if "Dashboard" in nav_selection:
             ),
         )
 
-        st.markdown("""
-        <div class="soc-card" style="min-height: 340px;">
-          <div class="soc-card-header">
-            <div class="soc-card-title">Top Threat Actors</div>
-          </div>
-        """, unsafe_allow_html=True)
-
+        st.markdown(
+            '<div class="soc-card" style="padding-bottom:8px;">'
+            '<div class="soc-card-header">'
+            '<div class="soc-card-title">Top Threat Actors</div>'
+            '</div></div>',
+            unsafe_allow_html=True,
+        )
         st.plotly_chart(fig_actors, use_container_width=True, config={"displayModeBar": False})
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
     # ── Bottom Row: Recent Incidents (Left) + IOC Summary Donut (Right) ────
     col_bot_left, col_bot_right = st.columns([1.4, 1.0])
 
     with col_bot_left:
-        incidents_display = [
-            ("202001", "Phishing Campaign Targeting Finance", "Marvin Halyne", "Investigating", "Critical"),
-            ("205002", "Phishing Campaign Targeting Finance", "Aiman Sulyns", "Triage", "Critical"),
-            ("205003", "Phishing Campaign Targeting Finance", "John Lawier", "Resolved", "High"),
-            ("205004", "Ransomware Variant XYZ Site", "Internal Hunt", "Resolved", "High"),
-        ]
+        # Recent Incidents table — built from real correlated incidents
+        _inc_sev_labels = {5: "Critical", 4: "High", 3: "High", 2: "Medium", 1: "Low", 0: "Low"}
+        _status_cycle = ["Investigating", "Triage", "Resolved", "Investigating"]
 
-        inc_rows_html = ""
-        for inc_id, name, assignee, status, sev in incidents_display:
-            status_pill = (
-                f"<span class='pill-tag pill-investigating'>{status}</span>" if status == "Investigating" else
-                f"<span class='pill-tag pill-triage'>{status}</span>" if status == "Triage" else
-                f"<span class='pill-tag pill-resolved'>{status}</span>"
+        _inc_tbody = ""
+        _display_incidents = incidents[:4] if incidents else []
+
+        for _idx, _inc in enumerate(_display_incidents):
+            _inc_id = _inc.get("incident_id", f"INC-{_idx:04d}")
+            _cats = _inc.get("categories", [])
+            _name_raw = (", ".join(_cats[:2]) if _cats else "Multi-Stage Attack") + f" [{_inc.get('src_ip', '?')}]"
+            _name_safe = _name_raw.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            _inc_id_safe = _inc_id.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            _assignee = "SOC Analyst " + ("Alpha" if _idx == 0 else "Bravo" if _idx == 1 else "Charlie" if _idx == 2 else "Delta")
+            _status = _status_cycle[_idx % len(_status_cycle)]
+            _sev_num = _inc.get("max_severity", 1)
+            _sev = _inc_sev_labels.get(_sev_num, "Medium")
+
+            if _status == "Investigating":
+                _pill = f'<span class="pill-tag pill-investigating">{_status}</span>'
+            elif _status == "Triage":
+                _pill = f'<span class="pill-tag pill-triage">{_status}</span>'
+            else:
+                _pill = f'<span class="pill-tag pill-resolved">{_status}</span>'
+
+            sev_class = "sev-text-critical" if _sev == "Critical" else "sev-text-high" if _sev == "High" else "sev-text-medium"
+
+            _inc_tbody += (
+                f'<tr>'
+                f'<td style="color:#38bdf8;font-family:\'JetBrains Mono\',monospace;font-weight:600;font-size:0.72rem">{_inc_id_safe}</td>'
+                f'<td style="font-weight:500">{_name_safe}</td>'
+                f'<td style="color:#94a3b8">{_assignee}</td>'
+                f'<td>{_pill}</td>'
+                f'<td class="{sev_class}">{_sev}</td>'
+                f'</tr>'
             )
-            sev_class = "sev-text-critical" if sev == "Critical" else "sev-text-high" if sev == "High" else "sev-text-medium"
 
-            inc_rows_html += f"""
-            <tr>
-              <td style="color:#38bdf8;font-family:'JetBrains Mono',monospace;font-weight:600">{inc_id}</td>
-              <td style="font-weight:500">{name}</td>
-              <td style="color:#94a3b8">{assignee}</td>
-              <td>{status_pill}</td>
-              <td class="{sev_class}">{sev}</td>
-            </tr>
-            """
+        # Fallback if no incidents are correlated yet
+        if not _inc_tbody:
+            _inc_tbody = '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:20px">No correlated incidents found. Increase sample size or check data.</td></tr>'
 
-        st.markdown(f"""
-        <div class="soc-card" style="min-height: 280px;">
-          <div class="soc-card-header">
-            <div class="soc-card-title">Recent Incidents</div>
-            <div class="live-badge"><span class="live-pulse"></span> Live</div>
-          </div>
-          <table class="soc-table">
-            <thead>
-              <tr>
-                <th>Incident ID</th>
-                <th>Name</th>
-                <th>Assignee</th>
-                <th>Status</th>
-                <th>Severity</th>
-              </tr>
-            </thead>
-            <tbody>
-              {inc_rows_html}
-            </tbody>
-          </table>
-        </div>
-        """, unsafe_allow_html=True)
+        _inc_html = (
+            '<div class="soc-card" style="min-height: 280px;">'
+            '<div class="soc-card-header">'
+            '<div class="soc-card-title">Recent Incidents</div>'
+            '<div class="live-badge"><span class="live-pulse"></span> Live</div>'
+            '</div>'
+            '<table class="soc-table"><thead><tr>'
+            '<th>Incident ID</th><th>Name</th><th>Assignee</th><th>Status</th><th>Severity</th>'
+            '</tr></thead>'
+            '<tbody>' + _inc_tbody + '</tbody>'
+            '</table></div>'
+        )
+        st.markdown(_inc_html, unsafe_allow_html=True)
 
     with col_bot_right:
-        # Donut Chart for IOC Summary matching reference
+        # Donut Chart for IOC Summary — real feed counts
+        # unique_ips  = IP-style indicators; unique_hosts = domain-style indicators
+        _n_ips     = max(feed_stats.get("unique_ips",   1), 1)
+        _n_domains = max(feed_stats.get("unique_hosts", 1), 1)
+        _n_total   = max(feed_stats.get("total_records", 1), 1)
+        # File hashes / other = records not covered by IP or domain host index entries
+        _n_hashes  = max(_n_total - _n_ips - _n_domains, 0)
         ioc_donut_df = pd.DataFrame({
-            "Type": ["IP Addresses", "Domains", "File Hashes", "Email Addresses"],
-            "Percent": [40, 30, 20, 10]
+            "Type":  ["IP Addresses", "Domains",   "File Hashes"],
+            "Count": [_n_ips,         _n_domains,  max(_n_hashes, 1)],
         })
 
         fig_donut = px.pie(
             ioc_donut_df,
             names="Type",
-            values="Percent",
+            values="Count",
             color="Type",
             color_discrete_map={
                 "IP Addresses": "#3b82f6",
-                "Domains": "#ef4444",
-                "File Hashes": "#f59e0b",
-                "Email Addresses": "#64748b",
+                "Domains":      "#ef4444",
+                "File Hashes":  "#f59e0b",
             },
             hole=0.6,
         )
@@ -906,17 +932,15 @@ if "Dashboard" in nav_selection:
             ),
         )
 
-        st.markdown("""
-        <div class="soc-card" style="min-height: 280px;">
-          <div class="soc-card-header">
-            <div class="soc-card-title">Indicator of Compromise (IOC) Summary</div>
-            <div class="live-badge"><span class="live-pulse"></span> Live</div>
-          </div>
-        """, unsafe_allow_html=True)
-
+        st.markdown(
+            '<div class="soc-card" style="padding-bottom:8px;">'
+            '<div class="soc-card-header">'
+            '<div class="soc-card-title">Indicator of Compromise (IOC) Summary</div>'
+            '<div class="live-badge"><span class="live-pulse"></span> Live</div>'
+            '</div></div>',
+            unsafe_allow_html=True,
+        )
         st.plotly_chart(fig_donut, use_container_width=True, config={"displayModeBar": False})
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -943,36 +967,41 @@ elif "Threat Feed" in nav_selection:
 
     # Search Indicator Console
     st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
-    st.markdown("""
-    <div class="soc-card">
-      <div class="soc-card-header">
-        <div class="soc-card-title">IOC Reputation Lookup</div>
-      </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="soc-card">'
+        '<div class="soc-card-header">'
+        '<div class="soc-card-title">IOC Reputation Lookup</div>'
+        '</div></div>',
+        unsafe_allow_html=True,
+    )
 
     lookup_ip = st.text_input("Enter IP Address, Hostname, or URL", placeholder="e.g. 198.50.128.218", label_visibility="collapsed")
     if lookup_ip:
         hits = feed.lookup_ip(lookup_ip.strip())
         if hits:
-            st.markdown(f"""
-            <div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;border-radius:8px;padding:12px 16px;color:#fca5a5;margin-top:10px">
-              🚨 <b>CONFIRMED MALICIOUS INDICATOR:</b> {len(hits)} active records in URLhaus database!
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                f'<div style="background:rgba(239,68,68,0.15);border:1px solid #ef4444;border-radius:8px;padding:12px 16px;color:#fca5a5;margin-top:10px">'
+                f'🚨 <b>CONFIRMED MALICIOUS INDICATOR:</b> {len(hits)} active records in URLhaus database!'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
             for h in hits[:4]:
-                st.markdown(f"""
-                <div style="padding:6px 0;border-bottom:1px solid #253148;font-size:0.8rem;color:#cbd5e1">
-                  <code>{h.get('url','N/A')}</code> &bull; Threat: <b>{h.get('threat','Malware')}</b> &bull; Status: {h.get('url_status','Active')}
-                </div>
-                """, unsafe_allow_html=True)
+                _url_safe = str(h.get('url', 'N/A')).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                _threat_safe = str(h.get('threat', 'Malware')).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                _status_safe = str(h.get('url_status', 'Active')).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                st.markdown(
+                    f'<div style="padding:6px 0;border-bottom:1px solid #253148;font-size:0.8rem;color:#cbd5e1">'
+                    f'<code>{_url_safe}</code> &bull; Threat: <b>{_threat_safe}</b> &bull; Status: {_status_safe}'
+                    f'</div>',
+                    unsafe_allow_html=True,
+                )
         else:
-            st.markdown("""
-            <div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;border-radius:8px;padding:12px 16px;color:#6ee7b7;margin-top:10px">
-              ✅ <b>CLEAN INDICATOR:</b> No active malware or C2 reports found.
-            </div>
-            """, unsafe_allow_html=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown(
+                '<div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;border-radius:8px;padding:12px 16px;color:#6ee7b7;margin-top:10px">'
+                '✅ <b>CLEAN INDICATOR:</b> No active malware or C2 reports found.'
+                '</div>',
+                unsafe_allow_html=True,
+            )
 
     # Feed Table
     if feed._records:
@@ -1014,39 +1043,36 @@ elif "Incidents" in nav_selection:
         m3.metric("ML Attack Probability", f"{bluf['ml_confidence']*100:.0f}%")
         m4.metric("Aggregated Events", f"{selected_inc['event_count']:,} flows")
 
-        # Dossier card
+        # Dossier card — build full HTML string before passing to st.markdown
         sections = bluf["sections"]
-        st.markdown(f"""
-        <div class="soc-card" style="margin-top:16px">
-          <div style="font-size:1.05rem;font-weight:700;color:#38bdf8;margin-bottom:12px">
-            🎯 1. BOTTOM LINE UP FRONT (BLUF)
-          </div>
-          <div style="font-size:0.9rem;line-height:1.75;color:#f8fafc;margin-bottom:20px;padding:12px 16px;background:rgba(56,189,248,0.08);border-left:3px solid #38bdf8;border-radius:6px">
-            {sections.get('BOTTOM LINE', '')}
-          </div>
 
-          <div style="font-size:1.05rem;font-weight:700;color:#94a3b8;margin-bottom:12px">
-            👤 2. THREAT ACTOR PROFILE &amp; MITRE TACTICS
-          </div>
-          <div style="font-size:0.85rem;line-height:1.7;color:#cbd5e1;margin-bottom:20px">
-            {sections.get('THREAT ACTOR & TECHNIQUE', '').replace(chr(10), '<br>')}
-          </div>
+        def _sec(key: str) -> str:
+            """Escape plain text section content then convert newlines to <br>."""
+            raw = sections.get(key, "")
+            escaped = raw.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            return escaped.replace("\n", "<br>")
 
-          <div style="font-size:1.05rem;font-weight:700;color:#ef4444;margin-bottom:12px">
-            💥 3. BLAST RADIUS &amp; ASSET IMPACT
-          </div>
-          <div style="font-size:0.85rem;line-height:1.7;color:#cbd5e1;margin-bottom:20px">
-            {sections.get('IMPACT ASSESSMENT', '').replace(chr(10), '<br>')}
-          </div>
-
-          <div style="font-size:1.05rem;font-weight:700;color:#10b981;margin-bottom:12px">
-            🛡️ 4. RECOMMENDED CONTAINMENT PLAYBOOK
-          </div>
-          <div style="font-size:0.85rem;line-height:1.7;color:#a7f3d0;padding:12px 16px;background:rgba(16,185,129,0.08);border-left:3px solid #10b981;border-radius:6px">
-            {sections.get('RECOMMENDED COMMAND ACTIONS', '').replace(chr(10), '<br>')}
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+        _bluf_html = (
+            '<div class="soc-card" style="margin-top:16px">'
+            '<div style="font-size:1.05rem;font-weight:700;color:#38bdf8;margin-bottom:12px">🎯 1. BOTTOM LINE UP FRONT (BLUF)</div>'
+            '<div style="font-size:0.9rem;line-height:1.75;color:#f8fafc;margin-bottom:20px;padding:12px 16px;background:rgba(56,189,248,0.08);border-left:3px solid #38bdf8;border-radius:6px">'
+            + _sec("BOTTOM LINE") +
+            '</div>'
+            '<div style="font-size:1.05rem;font-weight:700;color:#94a3b8;margin-bottom:12px">👤 2. THREAT ACTOR PROFILE &amp; MITRE TACTICS</div>'
+            '<div style="font-size:0.85rem;line-height:1.7;color:#cbd5e1;margin-bottom:20px">'
+            + _sec("THREAT ACTOR & TECHNIQUE") +
+            '</div>'
+            '<div style="font-size:1.05rem;font-weight:700;color:#ef4444;margin-bottom:12px">💥 3. BLAST RADIUS &amp; ASSET IMPACT</div>'
+            '<div style="font-size:0.85rem;line-height:1.7;color:#cbd5e1;margin-bottom:20px">'
+            + _sec("IMPACT ASSESSMENT") +
+            '</div>'
+            '<div style="font-size:1.05rem;font-weight:700;color:#10b981;margin-bottom:12px">🛡️ 4. RECOMMENDED CONTAINMENT PLAYBOOK</div>'
+            '<div style="font-size:0.85rem;line-height:1.7;color:#a7f3d0;padding:12px 16px;background:rgba(16,185,129,0.08);border-left:3px solid #10b981;border-radius:6px">'
+            + _sec("RECOMMENDED COMMAND ACTIONS") +
+            '</div>'
+            '</div>'
+        )
+        st.markdown(_bluf_html, unsafe_allow_html=True)
 
         st.download_button(
             "⬇  Export Briefing Text",
