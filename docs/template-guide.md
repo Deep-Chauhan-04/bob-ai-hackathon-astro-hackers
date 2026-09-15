@@ -4,7 +4,7 @@ This guide explains how to use the
 [bob-ai-hackathon-submission-template](https://github.com/drijesh-ppatel/bob-ai-hackathon-submission-template)
 to structure and submit your hackathon entry.
 
----
+------------
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@ to structure and submit your hackathon entry.
 8. [Common Mistakes](#8-common-mistakes)
 9. [FAQ](#9-faq)
 
-----
+------------
 
 ## 1. Overview
 
