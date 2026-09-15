@@ -12,15 +12,15 @@ team:
   name: "Astro Hackers"                  # REQUIRED
   track: "AI"                            # REQUIRED — AI track
   lead:
-    name: ""                             # REQUIRED — fill in team lead name
-    email: ""                            # REQUIRED — fill in team lead email
+    name: "KUNJ DESAI"                             # REQUIRED — fill in team lead name
+    email: "24cs015@charusat.edu.in"                            # REQUIRED — fill in team lead email
   members:
-    - name: ""                           # REQUIRED — Team member 1
-      email: ""
-    - name: ""
-      email: ""
-    - name: ""
-      email: ""
+    - name: "Deep Chauhan"                           # REQUIRED — Team member 1
+      email: "24cs012@charusat.edu.in"
+    - name: "Nisarg dedakiya"                           # REQUIRED — Team member 2
+      email: "24cs014@charusat.edu.in"
+    - name: "Krish Ardeshana"                   # REQUIRED — Team member 3         
+      email: "24cs007@charusat.edu.in"
 
 submission:
   title: "Threat Intelligence Correlation & Alert Prioritisation Assistant"
